@@ -1,0 +1,47 @@
+0.  What is pneumonoultramicroscopicsilicovolcanoconiosis?
+    Per Wikipedia, it is an artificially long word said to mean a lung disease caused by inhaling very fine ash and sand dust.
+    
+1.  According to its man page, what does getrusage do?
+    It means get resource usage.  It returns the resource usage measures for itself, all children of the calling process that 
+    have terminated and been waited for, or the return resource usage statistics for the calling thread.
+    
+2.  Per that same man page, how many members are in a variable of type struct rusage?
+    16
+    
+3.  Why do you think we pass before and after by reference (instead of by value) to calculate, even though we’re not changing 
+    their contents?
+    The calculate function uses the rusage structs to calculate resource usage.  If you pass in the values, it would take additional
+    resources make this calculation thereby increasing the amount of resource usage.  This would make the calculation of resource
+    usage you are attempting to obtain inaccurate.  
+    
+4.  Explain as precisely as possible, in a paragraph or more, how main goes about reading words from a file. In other words, 
+    convince us that you indeed understand how that function’s for loop works.
+    
+    In the loop, the variable c is used to spell check each word character-by-character, using fgetc(), until it reaches the end of the file.  
+    Specifically, It adds only alphabetical characters and apostrophies to an array called word[] and ignores strings too long to be 
+    words and numbers. Each letter is added at the [index] position in the word array and, once the entire word is added, it resets 
+    the index back to zero so it is ready to check the next word.  It then compares what is in the word array to the words in the dictionary.  
+    If there is not a match, it adds one to the misspelled counter.  
+    
+5.  Why do you think we used fgetc to read each word’s characters one at a time rather than use fscanf with a format string like "%s" 
+    to read whole words at a time? Put another way, what problems might arise by relying on fscanf alone?
+    If you used fscanf alone, you wouldn't be able to check for individual characters or numbers in the words.  
+
+6.  Why do you think we declared the parameters for check and load as const?
+    const indicates a constant.  These parameters are for pointers and their values will not change, so they can be declared as constants.
+
+
+7.  What data structure(s) did you use to implement your spell-checker? Be sure not to leave your answer at just "hash table," "trie," 
+    or the like. Expound on what’s inside each of your "nodes."
+    I used a trie.  I used the alphabet as the key so that the root node starts with the first letter of each word and builds out
+    from there as per the examples shown from class.  I arbitrarily assigned the ascii value 127 to the apostrophe and used that to 
+    check for apostrophes.  
+    
+8.  How slow was your code the first time you got it working correctly?
+    It took several seconds to run.
+
+9.  What kinds of changes, if any, did you make to your code in order to improve its performance?
+    I tried several implementations of the load function, but I couldn't get it any faster than .07.  
+
+10. Do you feel that your code has any bottlenecks that you were not able to chip away at?
+    I am sure there is a way to loop less times in load, but I can't get it to work when I try it other ways.
